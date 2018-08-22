@@ -1,0 +1,8 @@
+FROM node:alpine
+
+EXPOSE 8000
+
+WORKDIR /code/src
+COPY ./frontend .
+RUN npm install
+ENTRYPOINT ["npm", "run", "serve"]

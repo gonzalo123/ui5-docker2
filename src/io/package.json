@@ -1,0 +1,19 @@
+{
+  "name": "io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "serve": "node $NODE_DEBUG_OPTION server.js"
+  },
+  "author": "Gonzalo Ayuso <gonzalo123@gmail.com> (https://gonzalo123.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "amqp": "^0.2.7",
+    "amqplib": "^0.5.2",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "pg": "^7.4.3",
+    "socket.io": "^2.1.1"
+  }
+}

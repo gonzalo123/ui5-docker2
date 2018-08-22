@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta charset="UTF-8">
+
+  <title>Demo</title>
+
+  <script id="sap-ui-bootstrap"
+          src="../../resources/sap-ui-cachebuster/sap-ui-core.js"
+          data-sap-ui-libs="sap.m"
+          data-sap-ui-theme="sap_belize"
+          data-sap-ui-compatVersion="edge"
+          data-sap-ui-preload="async"
+          data-sap-ui-appCacheBuster="./"
+          data-sap-ui-language="en"
+          data-sap-ui-resourceroots='{
+            "gonzalo123": "./",
+            "io" : "../socket.io/socket.io"
+          }'>
+  </script>
+
+  <script>
+    sap.ui.getCore().attachInit(function() {
+      sap.ui.require([
+        'sap/m/Shell',
+        'sap/ui/core/ComponentContainer',
+      ], function(Shell, ComponentContainer) {
+        var oCompContainer = new ComponentContainer({
+          height: '100%',
+          settings: {
+            id: 'gonzalo123',
+          },
+        });
+
+        new Shell({
+          id: 'AppShell',
+          app: oCompContainer,
+        }).placeAt('content');
+
+        sap.ui.component({
+          name: 'gonzalo123',
+          manifestFirst: true,
+          async: true,
+        }).then(function(oComponent) {
+          oCompContainer.setComponent(oComponent);
+        });
+      });
+    });
+  </script>
+</head>
+
+<body class="sapUiBody" id="content">
+</body>
+
+</html>

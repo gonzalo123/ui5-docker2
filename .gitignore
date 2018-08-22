@@ -1,0 +1,3 @@
+*.swp
+src/io/node_modules/
+src/backend/vendor/

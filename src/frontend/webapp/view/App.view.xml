@@ -1,0 +1,26 @@
+<mvc:View controllerName="gonzalo123.controller.App"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:mvc="sap.ui.core.mvc"
+          displayBlock="true"
+          xmlns="sap.m">
+  <App id="idAppControl">
+    <pages>
+      <Page title="{i18n>appTitle}">
+        <content>
+          <List>
+            <items>
+              <ObjectListItem id="ITEM"
+                              title="{i18n>item}"
+                              type="Active"
+                              press="itemPressHandle">
+                <attributes>
+                  <ObjectAttribute id="count" text="{/Data/count}"/>
+                </attributes>
+              </ObjectListItem>
+            </items>
+          </List>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

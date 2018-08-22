@@ -1,0 +1,65 @@
+version: '3.4'
+
+services:
+  nginx:
+    image: gonzalo123.nginx
+    restart: always
+    build:
+      context: ./src
+      dockerfile: .docker/Dockerfile-nginx
+    networks:
+    - app-network
+  api:
+    image: gonzalo123.api
+    restart: always
+    build:
+      context: ./src
+      dockerfile: .docker/Dockerfile-lumen
+    networks:
+    - app-network
+  ui5:
+    image: gonzalo123.ui5
+    ports:
+    - "80:8000"
+    restart: always
+    volumes:
+    - ./src/frontend:/code/src
+    build:
+      context: ./src
+      dockerfile: .docker/Dockerfile-ui5
+    networks:
+    - app-network
+  io:
+    image: gonzalo123.io
+    restart: always
+    build:
+      context: ./src
+      dockerfile: .docker/Dockerfile-io
+    networks:
+    - app-network
+  pg:
+    image: gonzalo123.pg
+    restart: always
+    build:
+      context: ./src
+      dockerfile: .docker/Dockerfile-pg
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    networks:
+    - app-network
+  rabbit:
+    image: rabbitmq:3-management
+    restart: always
+    environment:
+      RABBITMQ_ERLANG_COOKIE:
+      RABBITMQ_DEFAULT_VHOST: /
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    networks:
+    - app-network
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,17 @@
+_schema-version: "2.0.0"
+ID: "appName"
+version: 0.0.1
+
+parameters:
+  hcp-deployer-version: "1.0.0"
+
+modules:
+  - name: "appName"
+    type: html5
+    path: .
+    parameters:
+       version: "1.0.0-${timestamp}"
+    build-parameters:
+      xbuilder: grunt
+      builder: zip
+      build-result: ../dist

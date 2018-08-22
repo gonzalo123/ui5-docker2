@@ -1,0 +1,2 @@
+FROM postgres:9.6-alpine
+COPY pg/init.sql /docker-entrypoint-initdb.d/

@@ -1,0 +1,23 @@
+{
+  "server": {
+    "port": "8000",
+    "hostname": "0.0.0.0",
+    "path": "/webapp/index.html",
+    "open": true
+  },
+  "service": {
+    "sapui5": {
+      "useSAPUI5": true,
+      "version": "1.54.8"
+    }
+  },
+  "destinations": {
+    "SOCKETIO": {
+      "url": "http://nginx:80/socket.io/"
+    },
+    "BACKEND": {
+      "url": "http://nginx:80",
+      "auth": "superSecretUser:superSecretPassword"
+    }
+  }
+}
