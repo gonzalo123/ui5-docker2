@@ -1,15 +1,15 @@
 ## Working with SAPUI5 locally part 3. Adding more services
 
-In the previous project we moved one project to docker. The idea was to move exactly the same funcionality (even without touching anything within the source code). Now we're going to add more services. Yes, I know, it looks like overenginering, but I want to build something with different services working together. Let start.
+In the previous project we moved one project to docker. The idea was to move exactly the same funcionality (even without touching anything within the source code). Now we're going to add more services. Yes, I know, it looks like overenginering (it's exactly overenginering, indeed), but I want to build something with different services working together. Let start.
 
-We're going to change a little bit our original project. Now our frontend will only have one button. This button will increment the number of clicks but we're going to persists this information in a PostgreSQL database. Also, instead of incrementing the counter in the backenck, our backend will emit one event to a RabbitMQ message broker. We'll have one worker service listening to this event and this worker will persists the information. The comunication between the worker and the frontend (to show the incremented value), will be via websockets.
+We're going to change a little bit our original project. Now our frontend will only have one button. This button will increment the number of clicks but we're going to persists this information in a PostgreSQL database. Also, instead of incrementing the counter in the backenck, our backend will emit one event to a RabbitMQ message broker. We'll have one worker service listening to this event and this worker will persist the information. The communication between the worker and the frontend (to show the incremented value), will be via websockets.
 
-With those premises we are goint to need:
-* Frontend: ui5 application
-* Backend: PHP/lumen aplication
-* Worker: nodejs application that is listening to RabbitMQ event and serving the websocket server (using socket.io)
+With those premises we are going to need:
+* Frontend: UI5 application
+* Backend: PHP/lumen application
+* Worker: nodejs application which is listening to a RabbitMQ event and serving the websocket server (using socket.io)
 * Nginx server
-* PosgreSQL database
+* PosgreSQL database.
 * RabbitMQ message broker.
 
 As the previous examples, our PHP backend will be server via Nginx and PHP-FPM.
@@ -103,7 +103,7 @@ networks:
     driver: bridge
 ```
 
-We're goint to use the same docker files than in the previous post but we also need new ones for worker, database server and message queue:
+We're going to use the same docker files than in the previous post but we also need new ones for worker, database server and message queue:
 
 Worker:
 ```yaml
@@ -192,7 +192,7 @@ INSERT INTO docker.clicks(clickCount) values (0);
 
 With the RabbitMQ server we're going to use the official docker image so we don't need to create one Dockerfile
 
-We also have changed a little bit our Nginx configuration. We want to use Nginx to serve backend and also socket.io server. That's because we don't want to expose different ports to the internet.
+We also have changed a little bit our Nginx configuration. We want to use Nginx to serve backend and also socket.io server. That's because we don't want to expose different ports to internet.
 
 ```yaml
 server {
@@ -228,6 +228,7 @@ server {
 
 To avoid cors issues we can also use SCP destination (the localneo proxy in this example), to serve socket.io also. So we need to:
 * change our neo-app.json file
+
 ```json
 "routes": [
     ...
@@ -241,7 +242,7 @@ To avoid cors issues we can also use SCP destination (the localneo proxy in this
     }
   ],
 ``` 
-* and destination.json file alos
+* and destination.json file also
 ```json
   "destinations": {
     "SOCKETIO": {
@@ -254,7 +255,7 @@ To avoid cors issues we can also use SCP destination (the localneo proxy in this
   }
 ``` 
 
-And basically that's all. Here also we can use a "production" docker-copose file without exposing all ports and mapping the filesystem to our local machine (usefull when we're developing)
+And basically that's all. Here also we can use a "production" docker-copose file without exposing all ports and mapping the filesystem to our local machine (useful when we're developing)
 
 ```yaml
 version: '3.4'
